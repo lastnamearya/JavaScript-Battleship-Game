@@ -94,26 +94,11 @@ var controller = {
       this.guesses++;
       var hit = model.fire(location);
       if(hit && model.shipSunk === model.numShips) {
-        view.displayMessage('You sank all my battleship, in' + this.guesses + " guesses");
+        view.displayMessage('You sank all my battleship, in ' + this.guesses + " guesses");
       }
     }
   }
 };
-
-// Test Drive of our Controller's ProcessGuess
-controller.processGuess("A0");
-
-controller.processGuess("A6");
-controller.processGuess("B6");
-controller.processGuess("C6");
-
-controller.processGuess("C4");
-controller.processGuess("D4");
-controller.processGuess("E4");
-
-controller.processGuess("B0");
-controller.processGuess("B1");
-controller.processGuess("B2");
 
 function parseGuess(guess) {
   var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
@@ -121,7 +106,7 @@ function parseGuess(guess) {
   if(guess === null || guess.length !== 2) {
     alert('Oops, please enter a letter and a number on the board.');
   } else {
-    firstChar = guess.charAt(0);
+    var firstChar = guess.charAt(0);
     var row = alphabet.indexOf(firstChar);
     var column = guess.charAt(1);
 
@@ -135,4 +120,24 @@ function parseGuess(guess) {
   }
   return null;
 }
+
+// *************************************************************** //
+
+// Event Listeners of our App
+
+function init() {
+  var fireButton = document.getElementById('fireButton');
+  fireButton.onclick = handleFireButton;
+}
+
+function handleFireButton() {
+  var guessInput = document.getElementById('guessInput');
+  var guess = guessInput.value;
+  controller.processGuess(guess);
+
+  guessInput.value = "";
+}
+
+window.onload = init;
+
 
